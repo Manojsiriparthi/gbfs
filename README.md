@@ -59,6 +59,7 @@ Release Candidates will receive *Current Version* status when they have been ful
 
 |  Version | Type  | Release Date   | Status                     | JSON Schema                                                                            | Release Notes       |
 |:---:|:-----:|----------------|----------------------------|----------------------------------------------------------------------------------------|---------------------|
+| [v3.1-RC2](https://github.com/MobilityData/gbfs/blob/v3.1-RC2/gbfs.md) | MINOR | May 28, 2025 | :white_check_mark: Ready for implementation | coming soon | [v3.1-RC2 Release Notes](https://github.com/MobilityData/gbfs/releases/tag/v3.1-RC2) |
 | [v3.1-RC](https://github.com/MobilityData/gbfs/blob/v3.1-RC/gbfs.md) | MINOR | May 22, 2024 | :white_check_mark: Ready for implementation | [v3.1-RC Schema](https://github.com/MobilityData/gbfs-json-schema/tree/master/v3.1-RC) | [v3.1-RC Release Notes](https://github.com/MobilityData/gbfs/releases/tag/v3.1-RC) |
 
 ### Past Version Releases 
@@ -71,7 +72,7 @@ Past  versions with *Deprecated* status will not be patched and their use SHOULD
 |  [v2.2](https://github.com/MobilityData/gbfs/blob/v2.2/gbfs.md) | MINOR  | March 19, 2021 |:white_check_mark: &nbsp; *Supported*  | [v2.2 Schema](https://github.com/MobilityData/gbfs-json-schema/tree/master/v2.2)| [v2.2 Article](https://mobilitydata.org/cities-gbfs-v2-2-is-here-for-you/)
 |  [v2.1](https://github.com/MobilityData/gbfs/blob/v2.1/gbfs.md) | MINOR  | March 18, 2021 |:white_check_mark: &nbsp; *Supported*  | [v2.1 Schema](https://github.com/MobilityData/gbfs-json-schema/tree/master/v2.1)| [v2.1 Article](https://mobilitydata.org/gbfs-now-fully-supports-dockless-systems-%f0%9f%9b%b4%f0%9f%91%8f/)
 |  [v2.0](https://github.com/MobilityData/gbfs/blob/v2.0/gbfs.md) | MAJOR  | March 16, 2020 | :white_check_mark: &nbsp;  *Supported*  | [v2.0 Schema](https://github.com/MobilityData/gbfs-json-schema/tree/master/v2.0) | [v2.0 Article](https://mobilitydata.org/whats-new-in-gbfs-v2-0-%f0%9f%9a%b2%f0%9f%9b%b4/) |
-|  [v1.1](https://github.com/MobilityData/gbfs/blob/v1.1/gbfs.md) | MINOR | March 16, 2020 |:white_check_mark: &nbsp; *Supported*  | [v1.1 Schema](https://github.com/MobilityData/gbfs-json-schema/tree/master/v1.1) | |
+|  [v1.1](https://github.com/MobilityData/gbfs/blob/v1.1/gbfs.md) | MINOR | March 16, 2020 |:x: &nbsp; *Deprecated*   | [v1.1 Schema](https://github.com/MobilityData/gbfs-json-schema/tree/master/v1.1) | |
 |  [v1.0](https://github.com/MobilityData/gbfs/blob/v1.0/gbfs.md) | MAJOR  | Prior to October 2019 | :x: &nbsp; *Deprecated*  | [v1.0 Schema](https://github.com/MobilityData/gbfs-json-schema/tree/master/v1.0)| |
  
 ### Full Version History 
@@ -92,11 +93,12 @@ Examples of non-breaking changes include:
 * Adding new enum values
 * Modifying documentation or specification language in a way that clarifies semantics or recommended practices
 
-
-#### Version Release Cycles - Release Deprecation
-See the [Governance](https://github.com/MobilityData/gbfs/blob/master/governance.md#version-release-cycles) for Version Release Cycles.
+#### Release Deprecation
 * GBFS documentation will include a list of current and supported MAJOR and MINOR versions. Supported versions SHALL NOT span more than two MAJOR versions. Past versions that are beyond the two most recent MAJOR versions will be deprecated 180 days after the latest MAJOR version becomes official.
  
+#### Version Release Cycles  
+* See the [Governance](https://github.com/MobilityData/gbfs/blob/master/governance.md#version-release-cycles) for Version Release Cycles.
+
 ## Guiding Principles
 To preserve the original vision of GBFS, the following guiding principles should be taken into consideration when proposing extensions to the spec:
 
@@ -123,18 +125,21 @@ If you would like to add a system, please fork this repository and submit a Pull
 - Create a new branch, and
 - Propose your changes by opening a [new pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)
 
-Please keep this list alphabetized by country and system name. Alternatively, fill out [this contribution form](https://forms.gle/WSXFuXx9k4PSTfbC9) for a Github-less contribution. 
+Please keep this list alphabetized by country and system name. Alternatively, fill out [this contribution form](https://share.mobilitydata.org/gbfs-feed-contribution-form) for a Github-less contribution. 
 * [systems.csv](systems.csv)
 
  Field Name | REQUIRED | Definition 
  --- | :---: | ---- 
-|Country Code | Yes | ISO 3166-1 alpha-2 code designating the country where the system is located. For a list of valid codes [see here](https://en.wikipedia.org/wiki/ISO_3166-1).
-| Name | Yes| Name of the mobility system. This MUST match the `name` field in `system_information.json`
-Location | Yes| Primary city in which the system is located, followed by the 2-letter state code for US systems. The location name SHOULD be in English if the location has an English name (eg: `Brussels`).
-System ID | Yes | ID for the system. This MUST match the `system_id` field in `system_information.json`.
-URL | Yes | URL for the system from the `url` field in `system_information.json`. If the `url` field is not included in `system_information.json` this SHOULD be the primary URL for the system operator.
-Auto-Discovery URL | Yes | URL for the system's `gbfs.json` auto-discovery file.
-Authentication Info | Conditionally REQUIRED | If authentication is required, this MUST contain a URL to a human-readable page describing how the authentication should be performed and how credentials can be created, or directly contain the public key-value pair to append to the feed URLs.
+|Country Code | REQUIRED | ISO 3166-1 alpha-2 code designating the country where the system is located. For a list of valid codes [see here](https://en.wikipedia.org/wiki/ISO_3166-1).
+| Name | REQUIRED| Name of the mobility system. This MUST match the `name` field in `system_information.json`
+Location | REQUIRED| Primary city in which the system is located, followed by the 2-letter state code for US systems. The location name SHOULD be in English if the location has an English name (eg: `Brussels`).
+System ID | REQUIRED | ID for the system. This MUST match the `system_id` field in `system_information.json`.
+URL | REQUIRED | URL for the system from the `url` field in `system_information.json`. If the `url` field is not included in `system_information.json` this SHOULD be the primary URL for the system operator.
+Auto-Discovery URL | REQUIRED | URL for the system's `gbfs.json` auto-discovery file.
+Supported Versions | REQUIRED | List of GBFS version(s) under which the feed is published. Multiple values ​​are separated by a semi-colon surrounded with 1 space on each side for readability (" ; ").
+Authentication Info URL | Conditionally REQUIRED | If authentication is required, this MUST contain a URL to a human-readable page describing how the authentication should be performed and how credentials can be created.
+Authentication Type | Conditionally REQUIRED |  If authentication is required, the type MUST be included. The **Authentication Type** field defines the type of authentication required to access the feed. Valid values for this field are: <ul> <li>**0** or **(empty)** - No authentication required.</li><li>**1** - The authentication requires an API key, which should be passed as value of the parameter `Authentication Parameter Name` in the URL. Please visit the URL in `Authentication Info URL` for more information. </li><li>**2** - The authentication requires an HTTP header, which should be passed as the value of the header `Authentication Parameter Name` in the HTTP request. </li></ul> When not provided, the authentication type is assumed to be **0**.
+Authentication Parameter Name | Conditionally REQUIRED | If authentication is required, the parameter name MUST be included. The **Authentication Parameter Name** field defines the name of the parameter to pass in the URL or header to provide the authentication credentials. This field is required for `Authentication Type=1` and `Authentication Type=2`. In case of multiple parameters, use the pipe character to separate them (`\|`).
 
 ## GBFS JSON Schemas
 Complete JSON schemas for each version of GBFS can be found [here](https://github.com/MobilityData/gbfs-json-schema).
